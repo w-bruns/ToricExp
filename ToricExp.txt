@@ -1,0 +1,692 @@
+Installation and use of the computer programs for experiments in
+lattice polytopes
+
+Version 1.2
+
+================================================================
+
+Winfried Bruns (wbruns@uos.de)
+
+October 08, 2011
+
+-----------------------------------------------------------------
+
+0. Preliminaries
+================
+
+The programs described below are made public in the hope that they
+are useful for the mathematical community. They come with absolutely
+no warranty. They are distributed under the GPL.
+
+The software package ToricExp contains algorithms for the creation
+and investigation of lattice polytopes and related objects. The
+executable programs aim at finding (counter)examples to open
+questions or conjectures on "smooth" polytopes, i.e., lattice
+polytopes whose associated affine monoid algebra is the homogeneous
+coordinate ring of a smooth projective toric variety.
+
+At present the source code does not fulfill the ISO-C standard, but
+in the long run I want to convert it to a well-structured library in
+order to make it accessible for programming by others. Please do not
+mind the terrible mixture of German and English in the source code.
+One day it will be cleaned up. Moreover, the source code cannot hide
+that it has been developed over time so that it is not as uniform as
+desirable.
+
+Except for the h-vector computation, the library contains the
+algorithms of Normaliz in an independent implementation plus many
+more things. Some of them may migrate into Normaliz. It could be
+that both projects will be merged into a single one, but I am not
+sure yet.
+
+Contents of the package
+-----------------------
+
+At top level:
+
+--- QuestToricRev.pdf: mathematical background
+--- Makefile: for compilation
+--- ToricExp.txt: this file
+--- Copying: the GPL license
+--- ToricExp.c: the library
+--- ChPoly.c: executable (after compilation)
+--- RandTriang.c: executable
+--- Support.c: executable
+--- Triangulate.c: executable
+--- Samples: subdirectory with example directories
+
+
+Subdirectories of Samples: these are named after the executables and
+contain sample input and output and sample configuration files. The
+output has been produced with the settings of the options determined
+by the default settings and the configuration files in the
+respective subdirectories.
+
+This documentation is rather brief. It will certainly help if you
+have a look into the source code of the executable programs and also
+into the example subdirectories.
+
+
+1. Installation and compilation
+===============================
+
+Simply unzip the package ToricExp.zip in a directory of your choice.
+Inside this directory you will then find a directory ToricExp. Then
+call "make" inside ToricExp to compile the executables.
+
+Alternatively, each of the programs can be compiled by the command
+
+gcc -O3 <Name>.c -o <Name>
+
+where <Name> stands for one of the executable programs. It is
+mandatory to use the names of the executables described by the
+syntax of the command since the programs call each other.
+
+I have tested the programs under Linux and Windows/Cygwin.
+
+Moreover, you must install Normaliz and copy the executable
+normaliz (or normaliz.exe) to a directory in your search path.
+NOW VERSION 2.7 OR HIGHER IS REQUIRED.
+
+For Normaliz see
+
+   http://www.math.uos.de/normaliz
+
+2. Overview of the programs
+===========================
+
+The file ToricExp.c contains a library of functions on which all the
+executables are based.
+
+The executable programs are compiled from the following files
+
+   RandTriang.c  --- creates "random" projective unimodular fans
+   Support.c     --- computes support polytopes of such fans
+   ChPoly.c      --- checks the critical properties of "smooth" polytopes
+   Triangulate.c --- computes unimodular refinements of fans
+
+
+3. Dependencies between the programs
+====================================
+
+RandTriang runs as an eternal loop until it is stopped. For each fan
+created it calls Support, and Support then calls ChPoly for checking
+the polytopes computed by Support.
+
+ChPoly calls norm64 (if the degree 2 check is applied).
+
+Triangulate does not call any other program and is not called by any
+of them.
+
+Calls of external programs are listed in the log file as "Calling
+<full command>" where <full command> stands for the command issued,
+including command line parameters.
+
+4. Running experiments
+======================
+
+A potential experiment is given by the
+
+   RandTriang-->Support-->ChPoly
+
+chain. But you can also set up your own experiment as follows:
+
+   (Your own simplicial fan maker)-->Triangulate-->Support-->ChPoly
+
+or
+
+   (Your own smooth polytope maker)-->ChPoly
+
+Time critical steps
+-------------------
+
+According to my experience, no step in the computations should block
+your machine for a very long time (say 12 hours) if you use the
+default settings.
+
+The most dangerous step is the computation of support polytopes. If
+you experience problems with it, reduce the value of
+MaxPicRankHilbBase (see Section 9). Also the parameters MaxicRank
+and MaxConesInFan of RandTriang have influence on this computation.
+They should be decreased if even the computation of extremal rays of
+the "nef cone extended by its interior" causes problems.
+
+The default settings allow 2000 lattice points for the degree 2
+check in ChPoly. With this number you should expect a computation
+time of about 30 minutes (and 5 minutes for 1000 lattice points).
+
+Switch the timer on if you want to measure computation times.
+
+Arithmetic
+----------
+
+For the arithmetic of vectors, matrices etc. the programs use the C
+type "long long" that is expected to represent 64 bit precision.
+
+Some speedup can be achieved by removing "#typedef LONGLONG" from
+the source code. Then the arithmetic is restricted to 32 bit.
+However, the chances for arithmetic overflow grow substantially, and
+I cannot recommend it.
+
+5. Exchange of data and log file
+================================
+
+The programs exchange data via files in the current directory. File
+names for exchange are created as temporary names based on PIDs.
+These files are automatically erased after return to the calling
+program. This means, the input file for a program is not erased if
+the program is called "by hand".
+
+The input files contain lists of matrices. A matrix has the
+following format:
+
+   m
+   n
+   v_11 ... v_1n
+   ...
+   v_m1 ... v_mn
+
+where the v_ij are integers. The m lines are interpreted as vectors
+in ZZ^n, linear forms on ZZ^n, pr as lists of indices.
+
+The programs write log files to stdout. This output stream is usually
+redirected to a hard disk file.
+
+Each program prints its PID into the log file. This is very useful
+when a program needs to be killed from "top" and you have several
+programs of the same name running. The PID is also used to name
+files with data to be transferred to another program.
+
+Also log files take space, and you may want to reduce it. In
+addition to switching off the option Verbose and the Timer, you can
+comment out some output that is only included in order to document
+the flow of computations. For example, you may want to comment out
+the "Calling ..." printf command in the function "run_pgm" in
+ToricExp.c.
+
+6. Representation of cones, polytopes, and fans
+==============================================
+
+A cone is either represented by a matrix whose rows (interpreted as
+vector in RR^n) generate it, or by a matrix whose rows, interpreted
+as linear forms on RR^n or inner normals of the facets, cut it out.
+
+Polytopes are ALWAYS represented as the height 1 cross-section of a
+cone where "height" refers to the LAST coordinate. In particular
+this means that the number of components n (as in Section 5) is the
+polytope dimension +1.
+
+A fan is specified by two consecutive matrices: the first matrix
+contains the rays of the fan, and the second matrix contains the
+maximal cones in the fan where each cone is specified by the indices
+of its rays (relative to the first matrix).Fans are represented in
+their natural space, and for them n is really the dimension.
+
+The programs assume that all objects are fulldimensional. This is
+not necessarily checked, and if it fails, strange error messages may
+appear.
+
+7. Command line parameters and configuration files
+==================================================
+
+The first parameter is always the name of the input file if the
+program needs an input file. The others have special meanings, as
+explained below.
+
+RandTriang, Support, and ChPoly read their own configuration files,
+provided these exist. The configuration files have the name(s)
+
+   <Name>.cfg
+
+where <Name> is the name of the associated program. The
+configuration file can change all the default options. Each line has
+the form
+
+   option value
+
+where value is a string, an integer or a boolean value ("true" or
+"false"). The value of a string option can be "(empty)" which
+indicates that the value is the empty string. Usually the empty
+string indicates that a certain action should be suppressed.
+
+Both option and value are limited to 49 characters.
+
+8. RandTriang
+=============
+
+Command line parameters are 3 positive integers:
+
+   RandTriang Dim Bound ExtraV
+
+Here Dim is the dimension of the fan to be created. Bound limits the
+absolute values of the rays of the projective random fan made, and
+ExtraV bounds the number of "extra" vectors added to the Dim+1
+vectors that we need at least if we want to make a complete fan.
+
+Note that the components of the rays of the unimodular fan to which
+the random choice is refined may have entries larger than Bound in
+absolute value.
+
+Often it happens that fans are too large. The size of admissible
+fans is limited by the maximum Picard rank ( = #rays - Dim) and the
+maximum number of maximal cones in the fan. Default values:
+
+   MaxPicRank 20
+   MaxConesInFan 150
+
+The random number generator uses time(&ticks) as its seed. It is
+sometimes desirable (especially in debugging) to set the seed
+manually. Then you add a line
+
+   seed N
+
+to the configuration file where N is the seed to be used. The
+default is "seed (empty)". (Contrary to what you might think, "seed"
+is an option whose value is a string).
+
+You can switch on/off a timer indicating the computation time for
+the steps in the computation. Default setting:
+
+   Timer false
+
+There is one more option set by default as follows:
+
+   NameDatabaseFan ../Fan_Sm
+
+The first setting indicates that a database file of fans is to be
+created (in the directory above the current one) and to be searched
+to check whether a newly created fan has appeared already. For
+example, the line
+
+   New in  ../Fan_Sm_3.base Typ 833
+
+in the log file indicates that the fan just created has not yet been
+found (and that there are 832 fans found before). If you see
+
+   Random triang made
+   UniModular refinement made
+   Random triang made
+   UniModular refinement made
+
+then (at least) the first of the two fans is "old". (Again, one
+could think of commenting out the corresponding printf commands.)
+
+The last option is set
+
+   Verbose true
+
+With this setting, RandTriang writes the (new and admissible)
+unimodular fan to the log file. If you want to save space in the log
+file, set Verbose to false.
+
+RandTriang writes the fan to a file with name
+
+   <PID>.ufn
+
+in the current directory where <PID> is the PID of the running
+process. Then Support is called with the (full) filename as its
+parameter.
+
+Example
+-------
+
+The command
+
+   RandTriang 3 2 5 > RandTriang325.log
+
+produced the file RandTriang325.log in the subdirectory RandTriang.
+Here 3 is the polytope dimension, 2 is the bound for the entries of
+the vectors in the random simplicial fan, and 5 tells RandTriang
+that the number of rays in the fan should vary between 4=3+1 and 9.
+
+When you run the program with these parameters yourself, then the
+output will most likely be different since it depends on the random
+number generator.
+
+Moreover, the name of the database has been set in the configuration
+file in a such a way that they are created in the current directory.
+They were initially empty.
+
+9. Support
+==========
+
+This program aims at finding lattice polytopes whose normal fan is
+the input to the program. These polytopes correspond to very ample
+divisors on the smooth projective toric variety defined by the input
+fan. Moreover, they correspond to support functions of the fan, and
+this correspondence is used for their computation.
+
+We are free to assume that the support function has value 0 on one
+of the maximal cones in the fan---this amounts to fixing the
+corresponding vertex of the support polytope at the origin. We
+choose the first cone (in the fan given to Support) for this
+restriction.
+
+Support functions are uniquely determined by an assignment of values
+to the primitive vectors in the rays of the fan such that the
+inequalities for "strict" convexity are satisfied. (Because of
+unimodularity, every assignment of values can be extended to a
+piecewise linear function.) These inequalities are set up by the
+program, and then it tries to find integer points in the interior of
+the "nef cone" defined by them.
+
+More precisely, it tries to compute the minimal system of generators
+of the interior lattice points as an ideal over the monoid of
+lattice points in the nef cone.
+
+This amounts to a Hilbert basis computation in the "extended nef
+cone". However this computation can be extremely time consuming, and
+therefore the program restricts itself to computing the extreme rays
+of the "extended nef cone" if a certain dimension is exceeded
+(option MaxPicRankHilbBase; see below).
+
+This program is called with a single parameter, namely the name of
+the file containing the fan to be investigated:
+
+   Support inputfile
+
+The input file contains a single unimodular projective fan.
+
+Default settings for general options:
+
+   Timer true
+   Verbose false
+
+If Verbose is changed to "true", then many data will be printed: the
+hyperplanes describing the nef cone, then those describing its
+extended by its interior. Moreover, the extreme rays, the essential
+hyperplanes and the Hilbert basis (if computed) of the "extended nef
+cone" are written to the log file.
+
+The computation of the Hilbert basis is controlled by the following
+option (with its default value):
+
+   MaxPicRankHilbBase 10
+
+This means that the Hilbert basis of the "extended nef cone" is
+computed if its dimension at most 11 (because of the extension by
+the interior). Increasing the value will lead to "better" (and more)
+support polytopes for higher Picard ranks. You can experiment with
+the value to see its effect on computing time.
+
+If the Picard rank is larger than MaxPicRankHilbBase, only the
+extreme rays of our critical cone are used to find support
+polytopes.
+
+CAUTION! It can happen that the extreme rays yield no integral support
+polytopes. In this case the log file contains the warning
+
+    No integral support polytopes from extreme rays
+
+Among the candidates for support polytopes found, Support chooses
+those that are minimal with respect to inclusion.
+
+The options (with their default values)
+
+   MaxModDiagSplit 5
+   MaxDimDiagSplit 8
+
+control the application of Payne's test for diagonal splitting. The
+test is applied to the rays of the fans for odd q between 3 and
+MaxModDiagSplit, and only to fans of maximal dimension
+MaxDimDiagSplit.
+
+The result of the test is used as the second input parameter for
+ChPoly (see below).
+
+The input file for ChPoly has the name
+
+   <tPID>.supp
+
+where PID belongs to the calling Support process.
+
+If you want to suppress the call of ChPoly, then change
+
+   ChPoly true
+
+to "false". This is useful, for example, when you want to test the
+computation of nef cones.If ChPoly==false, Verbose is automatically
+switched on.
+
+Example
+-------
+
+The output in the subdirectory was produced by
+
+   Support test.ufn
+
+
+10. ChPoly
+==========
+
+This program investigates the critical properties of smooth
+polytopes. The polytopes (rather the cones over them) can be
+specified by either
+
+(i) support hyperplanes or
+
+(ii) vertices.
+
+ChPoly is called with one mandatory and two optional parameters:
+
+   ChPoly inputfile [-nv]
+
+The input file contains a list of polytopes that are checked
+consecutively.
+
+If the parameter -n is set, then the diagonal split test is
+suppressed (it may be known from Support that its result will be
+negative).
+
+If the parameter -v is set, ChPoly interprets the input as vertices
+of polytopes. Otherwise it assumes that the polytopes are given by
+support hyperplanes (this is the case when Support calls ChPoly).
+
+General option as usual
+
+   Timer false
+
+If ChPoly finds a counterexample to one of the critical
+properties (normality, toric ideal generated in degree 2), then
+it sends an e-mail to
+
+   Address wbruns@uos.de
+
+Most likely you want to replace my address by yours. To disable the
+sending of e-mails, replace the address by "(empty)".
+
+If the support polytope has multiplicity (= normalized volume)
+larger than
+
+   AbsoluteMaxMult 100000000
+
+the nothing is done. (At the moment AbsoluteMaxMult is represented
+by an int (32 bit)).
+
+Chpoly computes a second polytope from the given one by
+chiseling off faces of all potential dimensions. This second
+polytope is called "cut polytope". Which of the two polytopes
+(one or both) is to be investigated is controlled by the
+following two options (with their default values):
+
+   CheckSuppPoly false
+   CheckCutPoly true
+
+Of course, if CheckCutPoly is set to false, the cut polytope will
+not be computed.
+
+Whether a polytope is checked, is controlled by
+
+   MaxVolCheck 100000   (was 1000000 in version 1.0)
+
+Here Vol refers to the Euclidean volume.
+
+The application of Payne's test for diagonal splitting is controlled
+by
+
+   MaxModDiagSplit 5
+   MaxDimDiagSplit 7
+
+as in Support. If the test has already failed in Support, then
+Support calls ChPoly with the second command line parameter 0, and
+the test is suppressed in ChPoly. If the test was successful in
+Support, then the second parameter is 1. In this case the test will
+be performed again (admittedly, it is superfluous for the support
+polytope, but usually not for the cut polytope).
+
+If the Euclidean volume does not exceed
+
+   MaxVolNormCheck 10000
+
+then the Hilbert basis of the cone over the polytope is computed,
+thus allowing a check of normality. Otherwise only the lattice
+points in the polytope are computed.
+
+ChPoly contains 3 different tests for the degree 2 generation of the
+toric ideal.
+
+(i) Generation in degree 2 up to saturation (with respect to the
+irrelevant maximal ideal). This check is rather fast and always
+performed. The test also checks for the property of being
+"superconnected" (to be explained elsewhere---usually this property
+fails). This check is always performed.
+
+The check is performed in two steps: first it is tested if the
+natural affine patches are defined in degree 2, second we test
+for abundant degree 2 equations.
+
+ChPoly also tests "strong connectivity".
+
+(ii) A check for the toric ideal to have no minimal generator in
+degree 3 controlled by
+
+   MaxHBDeg2Check 2000
+
+ChPoly does the following: it finds the degree 2 elements of the
+toric ideal and computes the h-vector of the residue class ring by
+their ideal in degree 3. This h-vector is compared to the h-vector
+of the residue class ring by the toric ideal, as computed by
+Normaliz. The toric ideal has a minimal generator in degree 3 if and
+only if the two h-vectors differ in degree 3.
+
+The name of the transfer file is composed as follows:
+
+    <argv[1]>Nmz
+
+where <argv[1]> stands for the filename with which ChPoly has been
+called. To this filename the suffixes used by Normaliz are added.
+After the evaluation of the Normaliz output, the transfer files are
+removed.
+
+(iii) If (ii) is not performed and the bound given by
+
+    MaxHBConnCheck 10000
+
+is not exceeded, a random selection of multidegrees of total degree
+3 is checked for connectedness of the corresponding "squarefree
+divisor complex".
+
+Finally, each polytope investigated can be written to a depot whose
+name is determined by
+
+   NameDepotPoly ../VertSmPol
+
+Set it to "(empty)" to disable it. The polytopes are given by their
+vertices in this depot.
+
+Chpoly tests whether the Ehrhart polynomial of the polytope
+under investigation has positive coefficients.
+
+During a single run, ChPoly creates a temporary database of
+polytopes. Each polytope created will be checked whether it exists
+already in the database. If so, it will be skipped. The database is
+erased when ChPoly is finished.
+
+Example
+-------
+
+The output in the subdirectory "ChPoly" was produced by
+
+   ChPoly test.supp > ChPoly.log
+   ChPoly test.vert -n -v > ChPolyVert.log
+
+The "-n" in the second command suppresses the diagonal split test.
+
+
+11. Triangulate
+===============
+
+This program computes unimodular triangulations. It accepts three
+types of input data:
+
+   C --- a fulldimensional cone
+   P --- a fulldimensional polytope, given by its vertices
+   F --- a simplicial fan.
+
+The second command line parameter is the capital letter indicating
+the type of input. The first parameter is the name of the file
+containing the input. In each case the program returns a unimodular
+fan, written to a file <name>.ufn where <name> stands for the first
+parameter (including suffix if it has one).
+
+In case C a unimodular triangulation of the cone is computed.
+
+In case P the result is a unimodular triangulation of the normal fan
+of P.
+
+In case F it is a unimodular triangulation of the fan.
+
+Note: also for this program, the polytope has to be given in dim P
++1 coordinates, the last one always being set to 1. (If you want a
+unimodular triangulation of the cone over the polytope, simply
+replace P by C as the second input parameter.)
+
+Example
+-------
+
+Triangulate was run as follows to produce the output in the
+subdirectory:
+
+   Triangulate poly2.vert P
+   Triangulate poly2.vert P
+   Triangulate cone3.gen C
+   Triangulate fan3.fan F
+
+
+11. Databases and depots
+========================
+
+Names of these files are formed as follows:
+
+   <Given name>_<Dim>.base
+
+where <Given name> is what it says and <Dim> is the relevant
+dimension (dimension of the fan or dimension(polytope)+1).
+
+12. Change log
+==============
+
+1.0 --> 1.1
+
+1) The format of databases for fans has been changed to a much more
+space efficient one.
+
+Version 1.1 cannot read fan databases produced by version 1.0. On
+request I can send you a program that transforms such databases from
+1.0 to 1.1.
+
+2) The determination of the support hyperplanes of the nef cone has
+been improved.
+
+3) Now Support writes all support polytopes into a file, and then
+calls Support only once (instead of separately for each polytope).
+
+4) The syntax of the ChPoly command line has been improved.
+
+5) Removal of options that have become superfluous.
+
+1.1 -> 1.2
+
+Addition of three tests to ChPoly.c: 1) Abundant deg 2
+equations, 2) Positivity of coefficients of Ehrhart polynomial,
+3) Check for strong connectivity

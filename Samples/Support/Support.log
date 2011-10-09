@@ -1,0 +1,421 @@
+*******************
+PID Support 7584
+*******************
+Test DiagSplit for q = 3
+Test DiagSplit for q = 5
+In Support not diagonally split for 3 <= q <= 5
+Defining hyperplanes of nef cone in PL (not pointed)
+11
+9
+-1 0 -1 1 0 1 0 0 0 
+1 0 1 0 0 0 0 0 1 
+1 0 1 0 0 -1 1 0 0 
+0 1 0 0 0 1 -2 0 0 
+0 -2 0 0 0 0 1 1 0 
+1 1 1 0 0 0 -1 0 0 
+0 0 0 0 -1 0 0 1 1 
+0 1 0 0 1 0 0 -2 0 
+1 0 1 0 1 0 0 -1 0 
+1 -1 1 0 0 0 0 1 0 
+0 0 0 1 1 0 0 0 -3 
+--------- Defining hyperplanes of nef cone in PL (not pointed)
+Made hyperpl restr nef cone ext by int
+Defining hyperplanes of restricted nef cone in PL, ext by int
+12
+7
+0 0 0 0 0 0 1 
+0 0 1 0 0 0 -1 
+0 0 0 0 0 1 -1 
+0 0 -1 1 0 0 -1 
+1 0 1 -2 0 0 -1 
+-2 0 0 1 1 0 -1 
+1 0 0 -1 0 0 -1 
+0 -1 0 0 1 1 -1 
+1 1 0 0 -2 0 -1 
+0 1 0 0 -1 0 -1 
+-1 0 0 0 1 0 -1 
+0 1 0 0 0 -3 -1 
+--------- Defining hyperplanes of restricted nef cone in PL, ext by int
+Time 0.03
+#Ext rays 11
+Ext rays of restricted nef cone in PL, extended by int
+11
+7
+1 1 1 1 1 0 0 
+1 3 0 0 2 1 0 
+2 4 0 1 3 1 0 
+4 9 0 2 6 3 0 
+6 12 0 3 9 4 0 
+2 6 0 1 4 2 0 
+14 31 1 7 22 10 1 
+2 3 2 2 2 1 0 
+3 3 3 3 3 1 0 
+1 3 1 1 2 1 0 
+9 16 6 7 12 5 1 
+--------- Ext rays of restricted nef cone in PL, extended by int
+Time 0.00
+#Hilb bas 18
+Hilbert basis of resttricted nef cone in PL, ext by int
+18
+7
+1 3 0 0 2 1 0 
+1 1 1 1 1 0 0 
+1 3 1 1 2 1 0 
+2 4 0 1 3 1 0 
+2 6 0 1 4 2 0 
+2 3 2 2 2 1 0 
+3 6 1 2 4 2 0 
+4 9 0 2 6 3 0 
+3 3 3 3 3 1 0 
+4 6 2 3 5 2 0 
+5 9 1 3 7 3 0 
+6 12 0 3 9 4 0 
+9 16 6 7 12 5 1 
+10 19 5 7 14 6 1 
+11 22 4 7 16 7 1 
+12 25 3 7 18 8 1 
+13 28 2 7 20 9 1 
+14 31 1 7 22 10 1 
+--------- Hilbert basis of resttricted nef cone in PL, ext by int
+Time 0.00
+Min support pol given by
+6
+7
+9 16 6 7 12 5 1 
+10 19 5 7 14 6 1 
+11 22 4 7 16 7 1 
+12 25 3 7 18 8 1 
+13 28 2 7 20 9 1 
+14 31 1 7 22 10 1 
+Time 0.00
+Calling ChPoly 7584.supp 
+*******************
+PID ChPoly 4684
+*******************
+******** Investigating polytope 1
+Time 0.05
+#vert supp pol 14
+Mult supp pol 350
+Time 0.00
+Checking support polytope
+New in  4684ChPoly_4.base Typ 1
+#Vert check pol 14
+14
+4
+0 0 0 1 
+0 0 6 1 
+0 2 7 1 
+2 0 7 1 
+0 1 7 1 
+1 0 7 1 
+0 4 4 1 
+4 0 4 1 
+0 3 6 1 
+3 0 6 1 
+0 5 0 1 
+5 0 0 1 
+0 5 1 1 
+5 0 1 1 
+In ChPoly not diagonally split for 3 <= q <= 5
+Making Hilbert basis
+#Hilbert basis of cone over polytope 112
+Time 0.00
+Calling normaliz -pf -x=6 7584.suppNmz > /dev/null
+Calling rm 7584.suppNmz*
+h-vector GB3 1 108 216 25
+h-vector Nmz 1 108 216 25
+After deg2/deg3 check
+Time 0.33
+Not superconnected
+After deg 2 affine cover
+Time 0.00
+After check for strong conn
+Time 0.00
+After abundance check
+Time 0.00
+------------- Done with polytope
+Computing cut polytope
+Time 0.00
+Checking cut polytope
+Mult cut pol 285
+Time 0.00
+New in  4684ChPoly_4.base Typ 2
+#Vert check pol 18
+18
+4
+0 1 7 1 
+1 0 7 1 
+0 0 6 1 
+0 2 7 1 
+2 0 7 1 
+0 3 6 1 
+3 0 6 1 
+0 4 4 1 
+4 0 4 1 
+5 0 0 1 
+0 5 0 1 
+0 5 1 1 
+5 0 1 1 
+4 0 0 1 
+0 4 0 1 
+0 0 5 1 
+1 0 3 1 
+0 1 3 1 
+In ChPoly not diagonally split for 3 <= q <= 5
+Making Hilbert basis
+#Hilbert basis of cone over polytope 91
+Time 0.00
+Calling normaliz -pf -x=6 7584.suppNmz > /dev/null
+Calling rm 7584.suppNmz*
+h-vector GB3 1 87 176 21
+h-vector Nmz 1 87 176 21
+After deg2/deg3 check
+Time 0.20
+After deg 2 affine cover
+Time 0.00
+After check for strong conn
+Time 0.00
+After abundance check
+Time 0.00
+------------- Done with polytope
+******** Investigating polytope 2
+Time 0.00
+#vert supp pol 14
+Mult supp pol 532
+Time 0.00
+Checking support polytope
+New in  4684ChPoly_4.base Typ 3
+#Vert check pol 14
+14
+4
+0 0 0 1 
+0 0 5 1 
+0 3 7 1 
+3 0 7 1 
+0 2 7 1 
+2 0 7 1 
+0 5 4 1 
+5 0 4 1 
+0 4 6 1 
+4 0 6 1 
+0 6 0 1 
+6 0 0 1 
+0 6 1 1 
+6 0 1 1 
+In ChPoly not diagonally split for 3 <= q <= 5
+Making Hilbert basis
+#Hilbert basis of cone over polytope 155
+Time 0.01
+Calling normaliz -pf -x=6 7584.suppNmz > /dev/null
+Calling rm 7584.suppNmz*
+h-vector GB3 1 151 335 45
+h-vector Nmz 1 151 335 45
+After deg2/deg3 check
+Time 0.61
+Not superconnected
+After deg 2 affine cover
+Time 0.00
+After check for strong conn
+Time 0.00
+After abundance check
+Time 0.01
+------------- Done with polytope
+Computing cut polytope
+Time 0.00
+Checking cut polytope
+Mult cut pol 285
+Time 0.00
+Already in  4684ChPoly_4.base Typ 2
+******** Investigating polytope 3
+Time 0.00
+#vert supp pol 14
+Mult supp pol 744
+Time 0.00
+Checking support polytope
+New in  4684ChPoly_4.base Typ 4
+#Vert check pol 14
+14
+4
+0 0 0 1 
+0 0 4 1 
+0 4 7 1 
+4 0 7 1 
+0 3 7 1 
+3 0 7 1 
+0 6 4 1 
+6 0 4 1 
+0 5 6 1 
+5 0 6 1 
+0 7 0 1 
+7 0 0 1 
+0 7 1 1 
+7 0 1 1 
+In ChPoly not diagonally split for 3 <= q <= 5
+Making Hilbert basis
+#Hilbert basis of cone over polytope 203
+Time 0.00
+Calling normaliz -pf -x=6 7584.suppNmz > /dev/null
+Calling rm 7584.suppNmz*
+h-vector GB3 1 199 474 70
+h-vector Nmz 1 199 474 70
+After deg2/deg3 check
+Time 1.28
+Not superconnected
+After deg 2 affine cover
+Time 0.02
+After check for strong conn
+Time 0.00
+After abundance check
+Time 0.01
+------------- Done with polytope
+Computing cut polytope
+Time 0.00
+Checking cut polytope
+Mult cut pol 285
+Time 0.00
+Already in  4684ChPoly_4.base Typ 2
+******** Investigating polytope 4
+Time 0.00
+#vert supp pol 14
+Mult supp pol 980
+Time 0.00
+Checking support polytope
+New in  4684ChPoly_4.base Typ 5
+#Vert check pol 14
+14
+4
+0 0 0 1 
+0 0 3 1 
+0 5 7 1 
+5 0 7 1 
+0 4 7 1 
+4 0 7 1 
+0 7 4 1 
+7 0 4 1 
+0 6 6 1 
+6 0 6 1 
+0 8 0 1 
+8 0 0 1 
+0 8 1 1 
+8 0 1 1 
+In ChPoly not diagonally split for 3 <= q <= 5
+Making Hilbert basis
+#Hilbert basis of cone over polytope 255
+Time 0.00
+Calling normaliz -pf -x=6 7584.suppNmz > /dev/null
+Calling rm 7584.suppNmz*
+h-vector GB3 1 251 629 99
+h-vector Nmz 1 251 629 99
+After deg2/deg3 check
+Time 2.46
+Not superconnected
+After deg 2 affine cover
+Time 0.00
+After check for strong conn
+Time 0.00
+After abundance check
+Time 0.03
+------------- Done with polytope
+Computing cut polytope
+Time 0.00
+Checking cut polytope
+Mult cut pol 285
+Time 0.00
+Already in  4684ChPoly_4.base Typ 2
+******** Investigating polytope 5
+Time 0.00
+#vert supp pol 14
+Mult supp pol 1234
+Time 0.00
+Checking support polytope
+New in  4684ChPoly_4.base Typ 6
+#Vert check pol 14
+14
+4
+0 0 0 1 
+0 0 2 1 
+0 6 7 1 
+6 0 7 1 
+0 5 7 1 
+5 0 7 1 
+0 8 4 1 
+8 0 4 1 
+0 7 6 1 
+7 0 6 1 
+0 9 0 1 
+9 0 0 1 
+0 9 1 1 
+9 0 1 1 
+In ChPoly not diagonally split for 3 <= q <= 5
+Making Hilbert basis
+#Hilbert basis of cone over polytope 310
+Time 0.00
+Calling normaliz -pf -x=6 7584.suppNmz > /dev/null
+Calling rm 7584.suppNmz*
+h-vector GB3 1 306 796 131
+h-vector Nmz 1 306 796 131
+After deg2/deg3 check
+Time 4.43
+Not superconnected
+After deg 2 affine cover
+Time 0.02
+After check for strong conn
+Time 0.00
+After abundance check
+Time 0.03
+------------- Done with polytope
+Computing cut polytope
+Time 0.02
+Checking cut polytope
+Mult cut pol 285
+Time 0.00
+Already in  4684ChPoly_4.base Typ 2
+******** Investigating polytope 6
+Time 0.00
+#vert supp pol 14
+Mult supp pol 1500
+Time 0.00
+Checking support polytope
+New in  4684ChPoly_4.base Typ 7
+#Vert check pol 14
+14
+4
+0 0 0 1 
+0 0 1 1 
+0 7 7 1 
+7 0 7 1 
+0 6 7 1 
+6 0 7 1 
+0 9 4 1 
+9 0 4 1 
+0 8 6 1 
+8 0 6 1 
+0 10 0 1 
+10 0 0 1 
+0 10 1 1 
+10 0 1 1 
+In ChPoly not diagonally split for 3 <= q <= 5
+Making Hilbert basis
+#Hilbert basis of cone over polytope 367
+Time 0.00
+Calling normaliz -pf -x=6 7584.suppNmz > /dev/null
+Calling rm 7584.suppNmz*
+h-vector GB3 1 363 971 165
+h-vector Nmz 1 363 971 165
+After deg2/deg3 check
+Time 7.42
+Not superconnected
+After deg 2 affine cover
+Time 0.02
+After check for strong conn
+Time 0.00
+After abundance check
+Time 0.08
+------------- Done with polytope
+Computing cut polytope
+Time 0.00
+Checking cut polytope
+Mult cut pol 285
+Time 0.00
+Already in  4684ChPoly_4.base Typ 2
+Back in Support from ChPoly

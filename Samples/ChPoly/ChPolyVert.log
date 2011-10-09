@@ -1,0 +1,71 @@
+*******************
+PID ChPoly 5720
+*******************
+******** Investigating polytope 1
+Time 0.01
+#vert supp pol 36
+Mult supp pol 8093
+Time 0.00
+Checking support polytope
+New in  5720ChPoly_4.base Typ 1
+#Vert check pol 36
+36
+4
+10 13 0 1 
+23 13 13 1 
+2 0 18 1 
+1 0 16 1 
+2 1 16 1 
+0 0 13 1 
+8 12 0 1 
+7 11 1 1 
+4 0 1 1 
+3 0 0 1 
+13 14 0 1 
+22 14 9 1 
+19 15 1 1 
+18 15 0 1 
+17 15 0 1 
+20 15 3 1 
+0 1 10 1 
+3 7 0 1 
+3 7 1 1 
+2 0 0 1 
+2 5 0 1 
+0 0 3 1 
+0 1 3 1 
+1 0 1 1 
+1 3 1 1 
+23 12 15 1 
+5 0 3 1 
+22 11 15 1 
+22 11 16 1 
+7 1 5 1 
+3 0 19 1 
+13 5 19 1 
+5 0 18 1 
+7 1 18 1 
+4 0 19 1 
+10 3 19 1 
+In ChPoly not diagonally split for 3 <= q <= 5
+Making Hilbert basis
+#Hilbert basis of cone over polytope 1623
+Time 0.03
+Calling normaliz -pf -x=6 test.vertNmz > /dev/null
+Calling rm test.vertNmz*
+h-vector GB3 1 1619 5354 1119
+h-vector Nmz 1 1619 5354 1119
+After deg2/deg3 check
+Time 1375.29
+Not superconnected
+After deg 2 affine cover
+Time 0.20
+After check for strong conn
+Time 0.08
+After abundance check
+Time 3.28
+------------- Done with polytope
+Computing cut polytope
+Time 0.00
+Checking cut polytope
+Cut poly = supp poly
