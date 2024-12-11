@@ -34,7 +34,7 @@ http://www.gnu.org/licenses/
 #include "ToricExp.c"
 
 
-main(int argc, char **argv)
+void main(int argc, char **argv)
 {
 
     int NOS, Dim,i,j,EDim,Rang,q, qmax,MaxDimDiagSplit,MaxPicRankHilbBase,Rang0;

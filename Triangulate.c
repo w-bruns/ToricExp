@@ -26,7 +26,7 @@ http://www.gnu.org/licenses/
 
 #include "ToricExp.c"
 
-main(int argc, char **argv)
+void main(int argc, char **argv)
 {
 
     FILE *Ein, *Aus;

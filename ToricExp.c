@@ -15,6 +15,11 @@ License along with this program; if not, see
 http://www.gnu.org/licenses/
 */
 
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
 
 
 // Daten-Typen
@@ -1629,7 +1634,7 @@ void HaengeVLan(char *database, VList VL, int Dim, char *caption)
     strcpy(filenamelock,filename);
     strcat(filenamelock,".lock");
 
-    while(FileExists(filenamelock,""))
+    while(access(filenamelock, F_OK) == 0)
     {
         printf("File %s locked\n",filename);
         for(i=0;i<1000000;i++)
@@ -2167,7 +2172,7 @@ void HaengeTriangAn(char *database, VList OneSkel, int Dim, SimplexList Tri, cha
     strcpy(filenamelock,filename);
     strcat(filenamelock,".lock");
 
-    while(FileExists(filenamelock,""))
+    while(access(filenamelock, F_OK) == 0)
     {
         printf("File %s locked\n",filename);
         for(i=0;i<1000000;i++)
@@ -7606,7 +7611,7 @@ void RemDoubleLV(VList *Source, int NSupp)
     }
 }
 
-OrderVListLV(VList *Source, int NSupp, VLE ***Kand, int *NKand)
+void OrderVListLV(VList *Source, int NSupp, VLE ***Kand, int *NKand)
 // im Falle NSupp<0 keine Doubletten entfernen
 {
 

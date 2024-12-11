@@ -29,7 +29,7 @@ http://www.gnu.org/licenses/
 
 #include "ToricExp.c"
 
-main(int argc, char **argv)
+void main(int argc, char **argv)
 {
 
     int Dim,i,j,kk,Rang,NSupp,MaxDegCheck,MaxHBVol,MaxTotVol,q,qmax,

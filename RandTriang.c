@@ -145,7 +145,7 @@ void CompleteRandTriang(VList *OneSkel, SimplexList *Triang, int Dim, Zahl Bound
     free(Extr);
 }
 
-main(int argc, char **argv)
+void main(int argc, char **argv)
 {
 
     int Dim, i, Last,ExtraV,MaxOneSkel,MaxTriang,NAtt;
