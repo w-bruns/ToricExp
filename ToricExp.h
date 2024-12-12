@@ -7013,7 +7013,7 @@ void NmzHV(int *HV, VList LattP, int Dim, char *FileName)
 
     Aus=fopen(FullFileName,"w");
     FSchreibeVL(Aus,LattP,Dim);
-    fprintf(Aus,"0\n");
+    fprintf(Aus,"cone\n");
     fclose(Aus);
 
     run_pgm("normaliz -pf -x=6",FileNameNmz," > /dev/null","");
