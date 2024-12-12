@@ -1,4 +1,4 @@
-// ToricExp.c, Version 1.2
+// ToricExp.h, Version 1.2
 // Bibliothek mit Algorithmen für Kegel und affine monoide
 // (C) Winfried Bruns 2011
 
@@ -20,7 +20,6 @@ http://www.gnu.org/licenses/
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-
 
 // Daten-Typen
 

@@ -48,7 +48,7 @@ At top level:
 --- Makefile: for compilation
 --- ToricExp.txt: this file
 --- Copying: the GPL license
---- ToricExp.c: the library
+--- ToricExp.h: the library
 --- ChPoly.c: executable (after compilation)
 --- RandTriang.c: executable
 --- Support.c: executable
@@ -90,12 +90,12 @@ NOW VERSION 2.7 OR HIGHER IS REQUIRED.
 
 For Normaliz see
 
-   http://www.math.uos.de/normaliz
+   https://www.normaliz.uni-osnabrueck.de/
 
 2. Overview of the programs
 ===========================
 
-The file ToricExp.c contains a library of functions on which all the
+The file ToricExp.h contains a library of functions on which all the
 executables are based.
 
 The executable programs are compiled from the following files
@@ -202,7 +202,7 @@ addition to switching off the option Verbose and the Timer, you can
 comment out some output that is only included in order to document
 the flow of computations. For example, you may want to comment out
 the "Calling ..." printf command in the function "run_pgm" in
-ToricExp.c.
+ToricExp.h.
 
 6. Representation of cones, polytopes, and fans
 ==============================================

@@ -8,7 +8,7 @@ CXXFLAGS = -O3
 
 all: RandTriang Support ChPoly Triangulate
 
-%: %.c ToricExp.c
+%: %.c
 	$(CXX) $(CXXFLAGS) $< -o $@
 
 clean: 

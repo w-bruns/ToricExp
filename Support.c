@@ -19,19 +19,11 @@ http://www.gnu.org/licenses/
 // und bestimmt zu ihm Support-Polytope.
 // Diese werden an ChPoly zur weiteren Untersuchung übergeben.
 
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <time.h>
-#include <unistd.h>
-
-
 #define LONGLONG
 
 // typedef int Zahl;
 
-#include "ToricExp.c"
+#include "ToricExp.h"
 
 
 void main(int argc, char **argv)
