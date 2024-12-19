@@ -7013,7 +7013,7 @@ void NmzHV(int *HV, VList LattP, int Dim, char *FileName)
 
     Aus=fopen(FullFileName,"w");
     FSchreibeVL(Aus,LattP,Dim);
-    fprintf(Aus,"0\n");
+    fprintf(Aus,"cone\n");
     fclose(Aus);
 
     run_pgm("normaliz -pf -x=6",FileNameNmz," > /dev/null","");
@@ -7023,17 +7023,29 @@ void NmzHV(int *HV, VList LattP, int Dim, char *FileName)
 
     Ein=fopen(FullFileName,"r");
 
+    int num_components;
+
     while(fscanf(Ein,"%s", key)>=1)
     {
-        if(strncmp(key, "h-vector",8)) continue;
+        if(strncmp(key, "vector",6))
+            continue;
+        fscanf(Ein, "%d", num_components);
+        fscanf(Ein,"%s", key);
+        if(strncmp(key, "hilbert_series_num", 18 ))
+            continue;
         fscanf(Ein,"%s", key); // = ueberlesen
         fscanf(Ein,"%d",&HV[0]);
         fscanf(Ein,"%d",&HV[1]);
-        fscanf(Ein,"%d",&HV[2]);
-        if(Dim >3)
-            fscanf(Ein,"%d",&HV[3]);
+        if(num_components >= 3)
+            fscanf(Ein,"%d",&HV[2]);
         else
-            HV[3]=0;
+            HV[2] = 0;
+
+        if(Dim > 3){
+            if(num_components >= 4)
+                fscanf(Ein,"%d",&HV[3]);
+            else HV[3] = 0;
+        }
         // printf("\nHNmz0 %d HNmz1 %d HNmz2 %d HNmz3 %d\n",HV[0],HV[1],HV[2],HV[3]);
         break;
     }
