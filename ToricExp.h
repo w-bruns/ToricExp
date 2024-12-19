@@ -7029,7 +7029,7 @@ void NmzHV(int *HV, VList LattP, int Dim, char *FileName)
     {
         if(strncmp(key, "vector",6))
             continue;
-        fscanf(Ein, "%d", num_components);
+        fscanf(Ein, "%d", &num_components);
         fscanf(Ein,"%s", key);
         if(strncmp(key, "hilbert_series_num", 18 ))
             continue;
